@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <input id="url" type="text"></input>
+    <button id="parseHtml" onclick="getData(document.getElementById('url').value);">parseHTML!</button>
+    <br>
+    <br>
+    <div id="displayData"></div>
+</body>
+<script>
+    function getData(url) {
+        if (url != null)
+            $.ajax({
+                url: "/getData",
+                type: "GET",
+                dataType: 'json',
+                data: {
+                    url: url
+                }
+            })
+            .done(function (data) {
+                $("#displayData").html("<h3> " + JSON.stringify(data.data) + "</h3><br><a href='https://jsonlint.com/'>Validate Above data ctrl+v in box</a>");
+                
+            })
+            .fail(function (err) {
+                $("#joinRoomDiv").html("<h3>Error occured</h3>");
+            });
+
+    }
+</script>
+
+</html>
